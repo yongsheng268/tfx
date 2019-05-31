@@ -1,5 +1,9 @@
 # TFX API Reference
 
+## TensorFlow Extended
+
+[TensorFlow Extended](python/tfx)
+
 ## Data Validation
 
 * [Data Validation](../data_validation/api_docs/python/tfdv)
