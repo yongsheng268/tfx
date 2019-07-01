@@ -63,3 +63,11 @@ function update_beam(){
     cd $BEAM_DIR && $GIT_COMMAND checkout $BEAM_BRANCH && $GIT_COMMAND pull --rebase
   fi
 }
+
+function get_parallelism(){
+  local parallelism=1
+  if [ -x "$(command -v nproc)" ]; then
+    parallelism=`nproc`
+  fi
+  echo $parallelism
+}

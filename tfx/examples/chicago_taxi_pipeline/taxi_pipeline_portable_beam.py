@@ -150,6 +150,7 @@ def _create_pipeline():
               # TODO(b/126725506): Set the task parallelism based on cpu cores.
               # TODO(FLINK-10672): Obviate setting BATCH_FORCED.
               '--execution_mode_for_batch=BATCH_FORCED',
+              # TODO(kcweaver) add parallelism options
           ],
           # LINT.ThenChange(tfx/examples/chicago_taxi/setup_beam_on_portable_beam.sh)
       },
