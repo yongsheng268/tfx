@@ -293,6 +293,8 @@ class ModelValidatorWrapper(KubeflowExecutorWrapper):
     )
     self._set_outputs()
 
+    self._exec_properties['component_id'] = 'model_validator'
+
     # TODO(ajaygopinathan): Implement latest blessed model determination.
     self._exec_properties['blessed_model'] = None
     self._exec_properties['blessed_model_id'] = None
