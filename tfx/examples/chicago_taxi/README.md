@@ -680,8 +680,9 @@ validation. To start the job, run:
 <code class="devsite-click-to-copy">source ./tfdv_analyze_and_validate_portable_beam.sh</code>
 </pre>
 
-You can see the status of the running job on the
-[Spark UI](http://localhost:8081).
+- Check http://localhost:8081 for the Spark master UI
+- Check http://localhost:4040 for the Spark application UI (while the job is
+  running)
 
 The outputs are the same as the local job and are stored at the same path.
 

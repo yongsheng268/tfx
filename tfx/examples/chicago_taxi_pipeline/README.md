@@ -239,7 +239,10 @@ sh tfx/examples/chicago_taxi/setup_beam_on_spark.sh
 
 Follow above instructions of Chicago Taxi Example with 'taxi_pipeline_simple'
 replaced by 'taxi_pipeline_portable_beam'.
-(Check http://localhost:8081 for the Spark Cluster Dashboard)
+
+- Check http://localhost:8081 for the Spark master UI
+- Check http://localhost:4040 for the Spark application UI (while the job is
+  running)
 
 # Learn more
 
