@@ -44,7 +44,7 @@ def _MockSubprocess2(cmd, env):  # pylint: disable=invalid-name, unused-argument
     json.dump(pipeline_args, f)
 
 
-def _MockSubprocess3(cmd):
+def _MockSubprocess3(cmd, env):  # pylint: disable=unused-argument
   click.echo(cmd)
 
 
@@ -80,7 +80,7 @@ class BeamHandlerTest(tf.test.TestCase):
     os.environ['HOME'] = self._original_home_value
     os.environ['BEAM_HOME'] = self._original_beam_home_value
 
-  @mock.patch('subprocess.call', _MockSubprocess)
+  @mock.patch('subprocess.check_output', _MockSubprocess)
   def test_save_pipeline(self):
     flags_dict = {
         labels.ENGINE_FLAG: self.engine,
@@ -94,7 +94,7 @@ class BeamHandlerTest(tf.test.TestCase):
             os.path.join(handler._handler_home_dir,
                          self.pipeline_args[labels.PIPELINE_NAME])))
 
-  @mock.patch('subprocess.call', _MockSubprocess)
+  @mock.patch('subprocess.check_output', _MockSubprocess)
   def test_create_pipeline(self):
     flags_dict = {
         labels.ENGINE_FLAG: self.engine,
@@ -108,7 +108,7 @@ class BeamHandlerTest(tf.test.TestCase):
         tf.io.gfile.exists(
             os.path.join(handler_pipeline_path, 'pipeline_args.json')))
 
-  @mock.patch('subprocess.call', _MockSubprocess)
+  @mock.patch('subprocess.check_output', _MockSubprocess)
   def test_create_pipeline_existent_pipeline(self):
     flags_dict = {
         labels.ENGINE_FLAG: self.engine,
@@ -123,7 +123,7 @@ class BeamHandlerTest(tf.test.TestCase):
         str(err.exception), 'Pipeline {} already exists.'.format(
             self.pipeline_args[labels.PIPELINE_NAME]))
 
-  @mock.patch('subprocess.call', _MockSubprocess)
+  @mock.patch('subprocess.check_output', _MockSubprocess)
   def test_update_pipeline(self):
     # First create pipeline with test_pipeline.py
     pipeline_path_1 = os.path.join(self.chicago_taxi_pipeline_dir,
@@ -150,7 +150,7 @@ class BeamHandlerTest(tf.test.TestCase):
         tf.io.gfile.exists(
             os.path.join(handler_pipeline_path, 'pipeline_args.json')))
 
-  @mock.patch('subprocess.call', _MockSubprocess)
+  @mock.patch('subprocess.check_output', _MockSubprocess)
   def test_update_pipeline_no_pipeline(self):
     # Update pipeline without creating one.
     flags_dict = {
@@ -164,7 +164,7 @@ class BeamHandlerTest(tf.test.TestCase):
         str(err.exception), 'Pipeline {} does not exist.'.format(
             self.pipeline_args[labels.PIPELINE_NAME]))
 
-  @mock.patch('subprocess.call', _MockSubprocess)
+  @mock.patch('subprocess.check_output', _MockSubprocess)
   def test_compile_pipeline(self):
     flags_dict = {
         labels.ENGINE_FLAG: self.engine,
@@ -175,7 +175,7 @@ class BeamHandlerTest(tf.test.TestCase):
       handler.compile_pipeline()
     self.assertIn('Pipeline compiled successfully', captured.contents())
 
-  @mock.patch('subprocess.call', _MockSubprocess2)
+  @mock.patch('subprocess.check_output', _MockSubprocess2)
   def test_compile_pipeline_no_pipeline_args(self):
     flags_dict = {
         labels.ENGINE_FLAG: self.engine,
@@ -188,7 +188,7 @@ class BeamHandlerTest(tf.test.TestCase):
         str(err.exception),
         'Unable to compile pipeline. Check your pipeline dsl.')
 
-  @mock.patch('subprocess.call', _MockSubprocess)
+  @mock.patch('subprocess.check_output', _MockSubprocess)
   def test_delete_pipeline(self):
     # First create a pipeline.
     flags_dict = {
@@ -209,7 +209,7 @@ class BeamHandlerTest(tf.test.TestCase):
         self.pipeline_args[labels.PIPELINE_NAME])
     self.assertFalse(tf.io.gfile.exists(handler_pipeline_path))
 
-  @mock.patch('subprocess.call', _MockSubprocess)
+  @mock.patch('subprocess.check_output', _MockSubprocess)
   def test_delete_pipeline_non_existent_pipeline(self):
     flags_dict = {
         labels.ENGINE_FLAG: self.engine,
@@ -247,7 +247,7 @@ class BeamHandlerTest(tf.test.TestCase):
       handler.list_pipelines()
     self.assertIn('No pipelines to display.', captured.contents())
 
-  @mock.patch('subprocess.call', _MockSubprocess3)
+  @mock.patch('subprocess.check_output', _MockSubprocess3)
   def test_create_run(self):
     # Create a pipeline in dags folder.
     handler_pipeline_path = os.path.join(os.environ['BEAM_HOME'],

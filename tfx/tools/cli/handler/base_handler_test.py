@@ -97,7 +97,7 @@ class BaseHandlerTest(tf.test.TestCase):
                      '{} runner not found in dsl.'
                      .format(flags_dict[labels.ENGINE_FLAG]))
 
-  @mock.patch('subprocess.call', _MockSubprocess)
+  @mock.patch('subprocess.check_output', _MockSubprocess)
   def test_extract_pipeline_args(self):
     flags_dict = {
         labels.ENGINE_FLAG: 'engine',

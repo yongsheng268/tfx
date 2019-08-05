@@ -19,7 +19,6 @@ from __future__ import print_function
 
 import json
 import os
-import subprocess
 import sys
 import click
 import tensorflow as tf
@@ -111,9 +110,12 @@ class BeamHandler(base_handler.BaseHandler):
 
   def create_run(self) -> None:
     """Runs a pipeline in Beam."""
-    # Check if pipeline exists.
+
+    # Path to pipeline folder.
     handler_pipeline_path = self._get_handler_pipeline_path(
         self.flags_dict[labels.PIPELINE_NAME])
+
+    # Check if pipeline exists.
     if not tf.io.gfile.exists(handler_pipeline_path):
       sys.exit('Pipeline {} does not exist.'.format(
           self.flags_dict[labels.PIPELINE_NAME]))
@@ -126,7 +128,8 @@ class BeamHandler(base_handler.BaseHandler):
       pipeline_args = json.load(f)
 
     # Run pipeline dsl.
-    subprocess.call(['python', str(pipeline_args[labels.PIPELINE_DSL_PATH])])
+    self._subprocess_call(
+        ['python', str(pipeline_args[labels.PIPELINE_DSL_PATH])])
 
   def delete_run(self) -> None:
     """Deletes a run."""

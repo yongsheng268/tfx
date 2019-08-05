@@ -107,6 +107,7 @@ class AirflowHandler(base_handler.BaseHandler):
     self._check_pipeline_dsl_path()
     self._check_dsl_runner()
     pipeline_args = self._extract_pipeline_args()
+    print(pipeline_args)
     if not pipeline_args:
       sys.exit('Unable to compile pipeline. Check your pipeline dsl.')
     click.echo('Pipeline compiled successfully.')
@@ -122,12 +123,13 @@ class AirflowHandler(base_handler.BaseHandler):
                .format(self.flags_dict[labels.PIPELINE_NAME]))
 
     # Unpause DAG.
-    subprocess.call(['airflow', 'unpause',
-                     self.flags_dict[labels.PIPELINE_NAME]])
+    self._subprocess_call(
+        ['airflow', 'unpause', self.flags_dict[labels.PIPELINE_NAME]])
 
     # Trigger DAG.
-    subprocess.call(
+    self._subprocess_call(
         ['airflow', 'trigger_dag', self.flags_dict[labels.PIPELINE_NAME]])
+
     click.echo('Run created for pipeline: ' +
                self.flags_dict[labels.PIPELINE_NAME])
 
@@ -147,7 +149,7 @@ class AirflowHandler(base_handler.BaseHandler):
     if not tf.io.gfile.exists(handler_pipeline_path):
       sys.exit('Pipeline {} does not exist.'.format(
           self.flags_dict[labels.PIPELINE_NAME]))
-    subprocess.call(
+    self._subprocess_call(
         ['airflow', 'list_dag_runs', self.flags_dict[labels.PIPELINE_NAME]])
 
   def get_run(self) -> None:
