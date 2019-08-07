@@ -68,7 +68,7 @@ class AirflowComponentTest(tf.test.TestCase):
   @mock.patch(
       'tfx.orchestration.component_launcher.ComponentLauncher'
   )
-  def test_airflow_adaptor(self, mock_component_launcher_class):
+  def testAirflowAdaptor(self, mock_component_launcher_class):
     fake_dagrun = collections.namedtuple('fake_dagrun', ['run_id'])
     mock_ti = mock.Mock()
     mock_ti.get_dagrun.return_value = fake_dagrun('run_id')
@@ -87,7 +87,7 @@ class AirflowComponentTest(tf.test.TestCase):
     mock_component_launcher.launch.assert_called_once()
 
   @mock.patch('functools.partial')
-  def test_airflow_component(self, mock_functools_partial):
+  def testAirflowComponent(self, mock_functools_partial):
     airflow_component.AirflowComponent(
         parent_dag=self._parent_dag,
         component=self._component,

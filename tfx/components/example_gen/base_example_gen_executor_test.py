@@ -84,7 +84,7 @@ class BaseExampleGenExecutorTest(tf.test.TestCase):
     self._eval_output_file = os.path.join(eval_examples.uri,
                                           'data_tfrecord-00000-of-00001.gz')
 
-  def test_do_input_split(self):
+  def testDoInputSplit(self):
     # Create exec proterties.
     exec_properties = {
         'input_config':
@@ -110,7 +110,7 @@ class BaseExampleGenExecutorTest(tf.test.TestCase):
         tf.gfile.GFile(self._train_output_file).size(),
         tf.gfile.GFile(self._eval_output_file).size())
 
-  def test_do_output_split(self):
+  def testDoOutputSplit(self):
     # Create exec proterties.
     exec_properties = {
         'input_config':

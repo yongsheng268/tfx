@@ -32,7 +32,7 @@ class ComponentTest(tf.test.TestCase):
     self.model_blessing = channel_utils.as_channel(
         [standard_artifacts.ModelBlessing()])
 
-  def test_construct(self):
+  def testConstruct(self):
     slack_component = component.SlackComponent(
         model_export=self.model_export,
         model_blessing=self.model_blessing,

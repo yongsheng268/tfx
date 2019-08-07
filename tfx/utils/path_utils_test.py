@@ -36,7 +36,7 @@ class PathUtilsTest(tf.test.TestCase):
         self._output_uri, 'serving_model_dir', 'export', 'taxi', 'MODEL')
     tf.gfile.MakeDirs(self._serving_model_path)
 
-  def test_model_path(self):
+  def testModelPath(self):
     # Test retrieving model folder.
     self.assertEqual(self._eval_model_path,
                      path_utils.eval_model_path(self._output_uri))

@@ -31,7 +31,7 @@ class LoggingUtilsTest(tf.test.TestCase):
     self._log_root = os.path.join(self.get_temp_dir(), 'log_dir')
     self._logger_config = logging_utils.LoggerConfig(log_root=self._log_root)
 
-  def test_logging(self):
+  def testLogging(self):
     """Ensure a logged string actually appears in the log file."""
     logger = logging_utils.get_logger(self._logger_config)
     logger.info('Test')
@@ -42,7 +42,7 @@ class LoggingUtilsTest(tf.test.TestCase):
         r'^\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d,\d\d\d - : \(logging_utils_test.py:\d\d\) - INFO: Test$'
     )
 
-  def test_default_settings(self):
+  def testDefaultSettings(self):
     """Ensure log defaults are set correctly."""
     config = logging_utils.LoggerConfig()
     self.assertEqual(config.log_root, '/var/tmp/tfx/logs')
@@ -50,7 +50,7 @@ class LoggingUtilsTest(tf.test.TestCase):
     self.assertEqual(config.pipeline_name, '')
     self.assertEqual(config.worker_name, '')
 
-  def test_override_settings(self):
+  def testOverrideSettings(self):
     """Ensure log overrides are set correctly."""
     config = logging_utils.LoggerConfig(log_root='path', log_level=logging.WARN,
                                         pipeline_name='pipe', worker_name='wrk')

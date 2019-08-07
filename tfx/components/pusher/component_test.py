@@ -36,7 +36,7 @@ class ComponentTest(tf.test.TestCase):
     self.model_blessing = channel_utils.as_channel(
         [standard_artifacts.ModelBlessing()])
 
-  def test_construct(self):
+  def testConstruct(self):
     pusher = component.Pusher(
         model_export=self.model_export,
         model_blessing=self.model_blessing,
@@ -45,14 +45,14 @@ class ComponentTest(tf.test.TestCase):
                 base_directory='push_destination')))
     self.assertEqual('ModelPushPath', pusher.outputs.model_push.type_name)
 
-  def test_construct_no_destination(self):
+  def testConstructNoDestination(self):
     with self.assertRaises(ValueError):
       _ = component.Pusher(
           model_export=self.model_export,
           model_blessing=self.model_blessing,
       )
 
-  def test_construct_no_destination_custom_executor(self):
+  def testConstructNoDestinationCustomExecutor(self):
     pusher = component.Pusher(
         model_export=self.model_export,
         model_blessing=self.model_blessing,

@@ -58,7 +58,7 @@ class ExecutorTest(tf.test.TestCase):
     self._context = executor.Executor.Context(tmp_dir=self._tmp_dir,
                                               unique_id='2')
 
-  def test_do_with_blessed_model(self):
+  def testDoWithBlessedModel(self):
     # Create exe properties.
     exec_properties = {
         'blessed_model':
@@ -79,7 +79,7 @@ class ExecutorTest(tf.test.TestCase):
     self.assertTrue(
         tf.gfile.Exists(os.path.join(self._blessing.uri, 'BLESSED')))
 
-  def test_do_without_blessed_model(self):
+  def testDoWithoutBlessedModel(self):
     # Create exe properties.
     exec_properties = {
         'blessed_model': None,
