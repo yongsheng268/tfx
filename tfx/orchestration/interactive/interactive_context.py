@@ -81,6 +81,16 @@ class InteractiveContext(object):
     self.pipeline_root = pipeline_root
     self.metadata_connection_config = metadata_connection_config
 
+    # Register IPython formatters. Import this here to avoid circular
+    # dependency.
+    # pylint: disable=g-import-not-at-top
+    try:
+      from tfx.orchestration.interactive import notebook_formatters  # pytype: disable=import-error
+      # pylint: enable=g-import-not-at-top
+      notebook_formatters.register_formatters()
+    except ImportError:
+      pass
+
   def run(self,
           component: base_component.BaseComponent,
           enable_cache: bool = True):
