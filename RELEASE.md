@@ -24,6 +24,8 @@
 *   Introduced the experimental InteractiveContext environment for iterative
     notebook development, as well as an example Chicago Taxi notebook
     in this environment.
+*   Added Docker image for running the Developer Tutorial and other examples in
+    a clean, stable environment.
 
 ## Bug fixes and other changes
 *   Declared 'cmle_training_args' on trainer and 'cmle_serving_args' on

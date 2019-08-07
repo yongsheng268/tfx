@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+
+  tfx:
+    build:
+      context: ./buildfiles
+      dockerfile: Dockerfile
+    ports:
+    - "8080:8080" # airflow
+    - "8888:8888" # jupyter notebook
+    volumes:
+    # This assumes that the directory on your host is ./airflow
+    # Note: You should create the ./airflow directory BEFORE running `docker-compose up`
+    - "./airflow:/home/tfx_user/airflow"
+
+    stdin_open: true
+    tty: true
+
+    entrypoint: /bin/bash -c "su tfx_user && cd"
